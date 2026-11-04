@@ -1,0 +1,9 @@
+{
+  "name": "Zin Exchange",
+  "short_name": "Zin Exchange",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#071326",
+  "theme_color": "#101c33",
+  "description": "MMK and THB Currency Exchange"
+}

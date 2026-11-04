@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="my">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101c33">
+<meta name="description" content="Zin Exchange — MMK and THB currency exchange">
+<link rel="manifest" href="/manifest.webmanifest">
+<title>Zin Exchange | Currency Exchange</title>
+<style>
+:root{--navy:#101c33;--gold:#d8b56d;--gold2:#f2d99a;--text:#f5f7fb;--muted:#aab8cc;--line:#405777}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 60% -10%,#24466c 0,#101c33 45%,#071326 100%);color:var(--text);font:14px system-ui,"Noto Sans Myanmar",sans-serif;min-height:100vh}
+.shell{display:grid;grid-template-columns:238px minmax(0,1fr);min-height:100vh}
+.sidebar{background:#09172b;border-right:1px solid #334866;padding:22px 14px;display:flex;flex-direction:column;gap:18px}
+.brand{display:flex;align-items:center;gap:11px;padding:4px 8px 18px;border-bottom:1px solid var(--line)}
+.crown{width:45px;height:45px;border-radius:14px;background:linear-gradient(140deg,#ffedb2,#b88735);color:#17233a;display:grid;place-items:center;font-size:24px}
+.brand strong{display:block;font-size:20px;color:var(--gold2)}.brand small,.muted{color:var(--muted)}
+nav{display:grid;gap:7px}nav button{background:transparent;color:var(--text);border:1px solid transparent;text-align:left;padding:12px;border-radius:12px;font:inherit;cursor:pointer}
+nav button.active,nav button:hover{background:linear-gradient(110deg,#d8b56d,#a77b32);color:#142039;font-weight:700}
+.owner{margin-top:auto;border-top:1px solid var(--line);padding:18px 8px;color:var(--muted)}
+main{min-width:0;padding:20px 24px 36px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.top h1{margin:0;font-size:25px}.lang{display:flex;gap:6px}.lang button,.btn{border:1px solid #8b754a;background:#172b48;color:var(--text);border-radius:10px;padding:9px 13px;cursor:pointer}
+.lang button.active,.btn.primary{background:linear-gradient(120deg,#f3d99b,#c89b4a);color:#17233a;font-weight:800}
+.hero{background:linear-gradient(120deg,#102847dd,#173b5ddd);border:1px solid #9b8052;border-radius:20px;padding:24px;text-align:center;margin-bottom:16px}
+.hero .flags{font-size:29px;letter-spacing:5px}.hero h2{font-size:clamp(21px,3vw,32px);margin:9px 0 3px}.hero p{margin:0;color:#d7e0ed}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.stat,.card{background:linear-gradient(145deg,#1b3558ed,#10233de8);border:1px solid #405777;border-radius:16px;padding:16px;box-shadow:0 12px 30px #0003}
+.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{font-size:20px;display:block;margin-top:8px}
+.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.card h3{margin:0 0 14px;font-size:17px}
+.rates{width:100%;border-collapse:collapse}.rates th,.rates td{padding:12px 9px;border-bottom:1px solid #405777;text-align:center}.rates th{color:var(--gold2);font-size:12px}.rates td:first-child{text-align:left}
+.pill{display:inline-block;padding:4px 9px;border-radius:20px;background:#263e60;color:#dce8f8;font-size:12px}
+.calc label{display:block;color:var(--muted);margin:12px 0 6px}.calc input{width:100%;padding:13px;border:1px solid #58708f;border-radius:10px;background:#091a2e;color:white;font:inherit}
+.switch{display:flex;gap:6px;margin-bottom:10px}.switch button{flex:1}.result{font-size:26px;color:#ffdf81;text-align:center;font-weight:800;margin:15px 0}
+.note{font-size:12px;color:var(--muted);line-height:1.6}.tablewrap{overflow:auto;margin-top:14px}.mobilebar{display:none}
+.contact{display:flex;gap:8px;flex-wrap:wrap}.contact a{color:var(--gold2);text-decoration:none;border:1px solid #61758e;border-radius:10px;padding:9px}
+.section{display:none}.section.active{display:block}.blank{padding:26px;border:1px dashed #61758e;border-radius:14px;text-align:center;color:var(--muted)}
+@media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+@media(max-width:700px){.shell{display:block}.sidebar{display:none}main{padding:14px 12px 80px}.top h1{font-size:20px}.hero{padding:18px 12px}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:17px}.mobilebar{display:flex;position:fixed;bottom:0;left:0;right:0;background:#09172bf2;border-top:1px solid #405777;justify-content:space-around;padding:9px 4px;z-index:5}.mobilebar button{background:none;border:0;color:#e9eef7;font-size:11px}.mobilebar button span{display:block;font-size:18px}.lang button{padding:7px 9px}.rates th,.rates td{padding:9px 5px;font-size:12px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar">
+<div class="brand"><div class="crown">♛</div><div><strong id="shopName">Zin Exchange</strong><small>Currency Exchange & Remittance</small></div></div>
+<nav>
+<button class="active" data-page="dashboard">▦　Dashboard</button><button data-page="rates">⇄　Exchange Rate</button><button data-page="new">▣　New Transaction</button><button data-page="transactions">▤　Transactions</button><button data-page="customers">♙　Customers</button><button data-page="reports">▥　Profit & Report</button><button data-page="banks">▣　Banks & QR</button><button data-page="settings">⚙　Shop Settings</button>
+</nav>
+<div class="owner">♛　Owner Setup<br><small>Secure owner account will be configured after Firebase connection.</small></div>
+</aside>
+<main>
+<div class="top"><div><h1 id="pageTitle">Dashboard</h1><div class="muted">MMK ⇄ THB · Thailand & Myanmar</div></div><div class="lang"><button class="active" data-lang="my">မြန်မာ</button><button data-lang="th">ไทย</button><button data-lang="en">English</button></div></div>
+<section id="dashboard" class="section active">
+<div class="hero"><div class="flags">🇲🇲　MMK　⇄　🇹🇭　THB</div><h2>Currency Exchange & Remittance</h2><p>Fast · Secure · Trusted</p></div>
+<div class="stats"><div class="stat"><span>Today Exchange</span><strong>—</strong><small class="muted">Live data awaits secure setup</small></div><div class="stat"><span>Total MMK Out</span><strong>— Ks</strong></div><div class="stat"><span>Total THB Out</span><strong>— THB</strong></div><div class="stat"><span>Today Profit</span><strong>—</strong></div></div>
+<div class="grid">
+<div class="card"><h3>◷ Today Exchange Rate</h3><table class="rates"><thead><tr><th>Direction</th><th>☀ Morning</th><th>☼ Afternoon</th></tr></thead><tbody><tr><td>MMK → THB</td><td><span class="pill">Not set</span></td><td><span class="pill">Not set</span></td></tr><tr><td>THB → MMK</td><td><span class="pill">Not set</span></td><td><span class="pill">Not set</span></td></tr></tbody></table><p class="note">Rates are intentionally blank. Owner must configure and publish the live rates before customers can submit a transaction.</p></div>
+<div class="card calc"><h3>▦ Quick Calculate</h3><div class="switch"><button class="btn primary" id="mmkBtn">MMK → THB</button><button class="btn" id="thbBtn">THB → MMK</button></div><label>Amount</label><input id="amount" type="number" min="0" step="any" placeholder="Enter amount"><label>Rate (owner configured)</label><input id="rate" type="number" min="0" step="any" placeholder="Rate not set" disabled><div class="result" id="result">—</div><p class="note">Calculator preview only. A live rate must be configured by the Owner.</p></div>
+</div>
+<div class="card tablewrap"><h3>Latest Transactions</h3><div class="blank">No transactions yet. Live transaction records will appear after Firebase setup.</div></div>
+</section>
+<section id="rates" class="section"><div class="card"><h3>Exchange Rate Management</h3><div class="blank">Owner-only rate editor will be enabled after secure Firebase Authentication and Firestore rules are configured. Morning and Afternoon sessions will have separate MMK → THB and THB → MMK rates.</div></div></section>
+<section id="new" class="section"><div class="card"><h3>New Exchange Transaction</h3><div class="blank">Customer phone verification, exchange direction, payment method, bank QR and receipt upload will be connected to the new Firebase database. Transactions are disabled until that secure connection is ready.</div></div></section>
+<section id="transactions" class="section"><div class="card"><h3>Transactions</h3><div class="blank">No live records. Search by customer phone, date, direction and payment status will be available after database setup.</div></div></section>
+<section id="customers" class="section"><div class="card"><h3>Customers</h3><div class="blank">Customer profiles and private transaction history will be stored in the isolated new database only.</div></div></section>
+<section id="reports" class="section"><div class="card"><h3>Profit & Report</h3><div class="blank">Daily/monthly spreadsheet reports and Excel export will be enabled after transaction data and owner-defined cost basis are configured.</div></div></section>
+<section id="banks" class="section"><div class="card"><h3>Banks & QR Management</h3><div class="blank">Owner can add Thailand K PLUS / TrueMoney and Myanmar KBZPay / Wave Money accounts, account holder, number and QR images after secure setup.</div></div></section>
+<section id="settings" class="section"><div class="card"><h3>Shop Settings</h3><label>Shop name</label><input value="Zin Exchange" id="shopInput"><p class="note">Preview only. The permanent shop name and contact links will be saved in Firebase after owner authentication is enabled.</p><div class="contact"><a href="#" aria-disabled="true">Messenger — setup pending</a><a href="#" aria-disabled="true">LINE — setup pending</a><a href="#" aria-disabled="true">Viber — setup pending</a></div></div></section>
+</main></div>
+<div class="mobilebar"><button data-page="dashboard"><span>▦</span>Home</button><button data-page="rates"><span>⇄</span>Rates</button><button data-page="new"><span>＋</span>Exchange</button><button data-page="transactions"><span>▤</span>Records</button><button data-page="settings"><span>⚙</span>Settings</button></div>
+<script>
+const titles={dashboard:"Dashboard",rates:"Exchange Rate",new:"New Transaction",transactions:"Transactions",customers:"Customers",reports:"Profit & Report",banks:"Banks & QR",settings:"Shop Settings"};
+function page(p){document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===p));document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===p));document.getElementById('pageTitle').textContent=titles[p]||'Dashboard'}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>page(b.dataset.page)));
+function setDir(d){document.getElementById('mmkBtn').classList.toggle('primary',d==='mmk');document.getElementById('thbBtn').classList.toggle('primary',d==='thb');document.getElementById('rate').value='';document.getElementById('rate').disabled=true;document.getElementById('rate').placeholder='Rate not set';document.getElementById('result').textContent='—'}
+document.getElementById('mmkBtn').onclick=()=>setDir('mmk');document.getElementById('thbBtn').onclick=()=>setDir('thb');
+document.getElementById('amount').addEventListener('input',()=>document.getElementById('result').textContent='—');
+document.getElementById('shopInput').addEventListener('input',e=>document.getElementById('shopName').textContent=e.target.value||'Zin Exchange');
+document.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-lang]').forEach(x=>x.classList.toggle('active',x===b));});
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+</script>
+</body></html>
