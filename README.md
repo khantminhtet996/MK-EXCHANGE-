@@ -1,4 +1,4 @@
-# Zin Exchange — MMK ⇄ THB
+# MK Exchange — MMK ⇄ THB
 
 This repository contains the initial responsive UI preview for Zin Exchange.
 
