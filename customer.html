@@ -23,7 +23,7 @@ body{padding:0 0 calc(76px + env(safe-area-inset-bottom));background:linear-grad
 .hero{display:none}
 .card,.rate-card{width:100%;border-radius:14px;padding:14px;margin-bottom:11px;box-shadow:0 5px 16px #0002}
 .rate-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.rate-row{padding:10px;border-radius:11px;min-width:0}
-.rate-row strong{font-size:13px}.rate-val{font-size:12px;gap:5px}.rate-val b{font-size:13px;text-align:right}
+.rate-row strong{font-size:13px}.rate-val{font-size:12px;gap:5px}.rate-val b{font-size:13px;text-align:right}.rate-single{justify-content:flex-start;border:0;padding-top:10px}.rate-single b{font-size:20px;color:#ffdf81}
 h2{font-size:17px;margin-bottom:10px}label{font-size:13px;margin-top:9px}
 input,select,textarea{padding:12px;border-radius:10px;font-size:15px;min-height:46px}
 .result{border-radius:12px;padding:12px;font-size:21px}.bank{margin:0}.bank img{max-width:100%;max-height:260px}
@@ -74,7 +74,7 @@ function dateLabel(){return new Date().toLocaleDateString("en-GB",{timeZone:"Asi
 function updateClock(){const d=new Date();$("liveClock").textContent=d.toLocaleDateString("en-GB",{timeZone:"Asia/Bangkok",day:"2-digit",month:"2-digit",year:"numeric"})+" · "+d.toLocaleTimeString("en-US",{timeZone:"Asia/Bangkok",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true});}updateClock();setInterval(updateClock,1000);
 function renderRates(){
  const dirs=[{id:"mmkToThb",name:"🇲🇲 ကျပ်ပေး → ဘတ်ယူ",unit:"THB"},{id:"thbToMmk",name:"🇹🇭 ဘတ်ပေး → ကျပ်ယူ",unit:"MMK"}];
- $("rateGrid").innerHTML=dirs.map(d=>'<div class="rate-row"><strong>'+d.name+'</strong><div class="rate-val"><span>ဝယ်ဈေး</span><b>'+(rate(d.id,"buy")?fmt(rate(d.id,"buy"),4)+" "+d.unit:"မသတ်မှတ်ရသေး")+'</b></div><div class="rate-val"><span>ရောင်းဈေး</span><b>'+(rate(d.id,"sell")?fmt(rate(d.id,"sell"),4)+" "+d.unit:"မသတ်မှတ်ရသေး")+'</b></div></div>').join("");
+ $("rateGrid").innerHTML=dirs.map(d=>'<div class="rate-row"><strong>'+d.name+'</strong><div class="rate-val rate-single"><b>'+(rate(d.id,"sell")?fmt(rate(d.id,"sell"),4)+" "+d.unit:"မသတ်မှတ်ရသေး")+'</b></div></div>').join("");
  $("rateDate").textContent="ယနေ့ · "+dateLabel();calcPreview();txPreview();
 }
 function calcPreview(){const d=$("calcDirection").value,a=Number($("calcAmount").value),r=rate(d,"sell"),out=compute(d,a,r);$("calcAmountLabel").textContent=d==="mmkToThb"?"ပေးမည့်ကျပ် (MMK)":"ပေးမည့်ဘတ် (THB)";$("calcResult").childNodes[0].textContent=out?fmt(out,2)+(d==="mmkToThb"?" THB":" MMK"):"—";$("calcRateText").textContent=r?"အသုံးပြုသော ရောင်းဈေး: "+fmt(r,4):"သက်ဆိုင်ရာ Rate မသတ်မှတ်ရသေးပါ";}
@@ -104,7 +104,7 @@ document.querySelectorAll("[data-target]").forEach(btn=>btn.addEventListener("cl
 function renderHistory(items){
  if(!items.length){$("history").innerHTML='<div class="empty">Transaction မှတ်တမ်း မရှိသေးပါ။</div>';return;}
  const labels={pending:"စစ်ဆေးဆဲ · Pending",approved:"အတည်ပြုပြီး · Approved",rejected:"ပယ်ဖျက်ပြီး · Rejected"};
- $("history").innerHTML=items.map(t=>{const from=t.direction==="mmkToThb"?"MMK":"THB",to=t.direction==="mmkToThb"?"THB":"MMK";let dt=t.createdAt?.toDate?t.createdAt.toDate().toLocaleString("en-GB",{timeZone:"Asia/Bangkok",day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"}):t.createdDate||"—";return '<article class="history"><div class="history-head"><strong>'+safe(t.customerName||t.phone||"Transaction")+'</strong><span class="status '+safe(t.status)+'">'+(labels[t.status]||safe(t.status))+'</span></div><p>'+fmt(t.inputAmount,2)+' '+from+' → '+fmt(t.outputAmount,2)+' '+to+'</p><p>Rate: '+safe(t.rate)+' · '+(t.side==="buy"?"ဝယ်ဈေး":"ရောင်းဈေး")+'</p><p>Reference: '+safe(t.transferReference)+'</p><p>ရက်စွဲ: '+safe(dt)+'</p>'+(t.note?'<p>မှတ်ချက်: '+safe(t.note)+'</p>':"")+'</article>';}).join("");
+ $("history").innerHTML=items.map(t=>{const from=t.direction==="mmkToThb"?"MMK":"THB",to=t.direction==="mmkToThb"?"THB":"MMK";let dt=t.createdAt?.toDate?t.createdAt.toDate().toLocaleString("en-GB",{timeZone:"Asia/Bangkok",day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"}):t.createdDate||"—";return '<article class="history"><div class="history-head"><strong>'+safe(t.customerName||t.phone||"Transaction")+'</strong><span class="status '+safe(t.status)+'">'+(labels[t.status]||safe(t.status))+'</span></div><p>'+fmt(t.inputAmount,2)+' '+from+' → '+fmt(t.outputAmount,2)+' '+to+'</p><p>Rate: '+safe(t.rate)+'</p><p>Reference: '+safe(t.transferReference)+'</p><p>ရက်စွဲ: '+safe(dt)+'</p>'+(t.note?'<p>မှတ်ချက်: '+safe(t.note)+'</p>':"")+'</article>';}).join("");
 }
 function listenHistory(){if(!user)return;if(txStop)txStop();const q=query(collection(db,"transactions"),where("uid","==",user.uid));txStop=onSnapshot(q,snap=>{let items=snap.docs.map(d=>({id:d.id,...d.data()}));items.sort((a,b)=>{const x=a.createdAt?.toMillis?a.createdAt.toMillis():0,y=b.createdAt?.toMillis?b.createdAt.toMillis():0;return y-x;});renderHistory(items);},e=>message("မှတ်တမ်းဖတ်မရပါ: "+e.message,true));}
 function makeId(){return globalThis.crypto?.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2);}
